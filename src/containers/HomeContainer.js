@@ -4,19 +4,19 @@ import moment from "moment";
 
 // const data = [
 //     {
-//         date: "11.03.2020",
-//         lunches: 1,
+//         startDate: "11.03.2020",
+//         finishDate: "11.03.2020",
 //         startHour: "13:00",
 //         finishHour: "22:00",
-//         isHoliday: false
+//         hours: 8
 //     },
 //     {
-//         date: "11.02.2020",
-//         lunches: 1,
+//         startDate: "11.02.2020",
+//         finishDate: "11.02.2020",
 //         startHour: "13:00",
 //         finishHour: "22:00",
-//         isHoliday: false
-//     }
+//         hours: 8
+//     },
 // ];
 
 // const settings = {
@@ -25,8 +25,23 @@ import moment from "moment";
 //     taxRate: 0,
 //     baseWage: 10,
 //     nightStarts: 22,
+//     salaryDate: 10,
+//     prepayDate: 25,
 //     prepayRate: 0.4
 // };
+
+// date = "dd.mm"
+const filterDates = (first, second) => {
+    let [d1, m1] = first.split(".");
+    let [d2, m2] = second.split(".");
+    first = `${m1}.${d1}`;
+    second = `${m2}.${d2}`;
+    if (first > second) {
+        return 1;
+    } else {
+        return -1;
+    }
+};
 
 const moveToFriday = date => {
     // If this date is yet to come
@@ -53,54 +68,46 @@ const calculatePrepay = (data, settings) => {
     const { taxRate, baseWage, prepayRate } = settings;
     let { prepayDate } = settings;
     let hours = 0;
-    const currentMonth = data.filter(
-        i =>
-            moment(i.startDate, "DD.MM.YYYY").format("M") ===
-            moment().format("M")
-    );
+    let month;
     prepayDate = moveToFriday(prepayDate);
-    for (let shift of currentMonth) {
-        if (
-            parseInt(moment(shift.startDate, "DD.MM.YYYY").format("D")) <
-            prepayDate
-        ) {
-            hours += shift.hours;
-        }
+    if (moment().format("D") < prepayDate) {
+        month = moment().format("M");
+    } else {
+        month = moment()
+            .add(1, "months")
+            .format("M");
     }
-    hours *= 1 - prepayRate;
+    const currentShifts = data.filter(
+        shift =>
+            moment(shift.startDate, "DD.MM.YYYY").format("M") === month &&
+            moment(shift.startDate, "DD.MM.YYYY").format("D") < prepayDate
+    );
+    for (let shift of currentShifts) {
+        hours += shift.hours;
+    }
+    return hours * prepayRate * (1 - taxRate) * baseWage;
 };
 
 const calculateSalary = (data, settings) => {
-    let { taxRate, baseWage, prepayRate, prepayDate } = settings;
-    // Work hours before the prepay
+    const { taxRate, baseWage, prepayRate } = settings;
+    let { salaryDate } = settings;
     let hours = 0;
-    // Work hours after the prepay til the end of the month
-    let salaryHours = 0;
-    // Going thru shifts of the current month only
-    let currentMonth = data.filter(
-        i =>
-            moment(i.startDate, "DD.MM.YYYY").format("M") ===
-            moment().format("M")
-    );
-    // The prepay is moved to Friday if it's on weekends
-    prepayDate = moveToFriday(prepayDate);
-    for (let shift of currentMonth) {
-        if (
-            parseInt(moment(shift.startDate, "DD.MM.YYYY").format("D")) <
-            prepayDate
-        ) {
-            hours += shift.hours;
-        } else {
-            salaryHours += shift.hours;
-        }
+    let month;
+    salaryDate = moveToFriday(salaryDate);
+    if (moment().format("D") > salaryDate) {
+        month = moment().format("M");
+    } else {
+        month = moment()
+            .subtract(1, "months")
+            .format("M");
     }
-    salaryHours += hours * (1 - prepayRate);
-    if (parseInt(moment().format("D")) >= prepayDate) {
-        hours = 0;
-    }
-    return [prepayRate * hours, salaryHours].map(i =>
-        (i * (1 - taxRate) * baseWage).toFixed(2)
+    const currentShifts = data.filter(
+        shift => moment(shift.startDate, "DD.MM.YYYY").format("M") === month
     );
+    for (let shift of currentShifts) {
+        hours += shift.hours;
+    }
+    return hours * (1 - prepayRate) * (1 - taxRate) * baseWage;
 };
 
 const salaryDate = date => {
@@ -118,10 +125,12 @@ const salaryDate = date => {
 };
 
 const mapStateToProps = state => {
-    const [prepay, salary] = calculateSalary(state.data, state.setup);
+    const { setup, data } = state;
+    const salary = calculateSalary(data, setup);
+    const prepay = calculatePrepay(data, setup);
     return {
-        nextSalaryDate: salaryDate(state.setup.salaryDate),
-        nextPrepayDate: salaryDate(state.setup.prepayDate),
+        nextSalaryDate: salaryDate(setup.salaryDate),
+        nextPrepayDate: salaryDate(setup.prepayDate),
         nextPrepay: prepay,
         nextSalary: salary
     };
