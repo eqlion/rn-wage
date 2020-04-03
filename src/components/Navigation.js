@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import Home from "../screens/HomeScreen";
-import Calendar from "../screens/Calendar";
+import Calendar from "../containers/CalendarContainer";
 import Settings from "../screens/Settings";
 import Stats from "../containers/StatsContainer";
 
