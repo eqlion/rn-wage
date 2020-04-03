@@ -3,13 +3,13 @@ import { Dimensions, ScrollView } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import Card from "./Card";
 
-export default Chart = ({ hoursData, totalData, earnedData }) => {
+export default Chart = ({ hours, total, earned }) => {
     const style = {
         marginVertical: 8,
         borderRadius: 4
     };
 
-    const x = hoursData.labels;
+    const x = hours.labels;
 
     const width =
         Dimensions.get("window").width >
@@ -27,7 +27,7 @@ export default Chart = ({ hoursData, totalData, earnedData }) => {
                 <ScrollView horizontal={true}>
                     <BarChart
                         style={style}
-                        data={hoursData}
+                        data={hours}
                         width={width}
                         height={220}
                         chartConfig={chartConfig}
@@ -39,7 +39,7 @@ export default Chart = ({ hoursData, totalData, earnedData }) => {
                 <ScrollView horizontal={true}>
                     <BarChart
                         style={style}
-                        data={totalData}
+                        data={total}
                         width={width}
                         height={220}
                         chartConfig={chartConfig}
@@ -51,7 +51,7 @@ export default Chart = ({ hoursData, totalData, earnedData }) => {
                 <ScrollView horizontal={true}>
                     <BarChart
                         style={style}
-                        data={earnedData}
+                        data={earned}
                         width={width}
                         height={220}
                         chartConfig={chartConfig}
