@@ -6,8 +6,8 @@ const d = [
         finishDate: "26.03.2020",
         startHour: "10.00",
         finishHour: "09.00",
-        hours: 25.5
-    }
+        hours: 25.5,
+    },
 ];
 
 export default data = (state = [], action) => {
@@ -15,11 +15,11 @@ export default data = (state = [], action) => {
         case ADD_DATA:
             return [...state, action.data];
         case REMOVE_DATA:
-            return state.filter(data => data.date != action.date);
+            return state.filter((data) => data.date !== action.date);
         case EDIT_DATA:
             return [
-                ...state.filter(data => data.date != action.data.date),
-                action.data
+                ...state.filter((data) => data.date !== action.data.date),
+                action.data,
             ];
         default:
             return state;

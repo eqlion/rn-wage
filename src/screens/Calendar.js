@@ -1,15 +1,19 @@
 import React from "react";
 import { Paragraph } from "react-native-paper";
 import { Calendar } from "react-native-calendars";
-import { Card, Header } from "../components";
+import { Card, Header, CustomDay } from "../components";
 
-export default CalendarScreen = ({ markedDates }) => {
+export default CalendarScreen = ({ navigation, markedDates }) => {
     return (
         <>
             <Header title="Calendar" />
             <Card title="Calendar">
                 <Calendar
-                    onDayPress={day => console.log(day)}
+                    onDayPress={(day) =>
+                        navigation.navigate("Shift", {
+                            day: day.dateString.split("-").reverse().join("."),
+                        })
+                    }
                     markedDates={markedDates}
                 />
             </Card>

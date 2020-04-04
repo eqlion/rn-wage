@@ -14,22 +14,37 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Card, Box, Header, DateButton } from "../components";
 
-export default AddData = ({ navigation, setup, addData }) => {
-    const [isHoliday, setHoliday] = useState(false);
-    const [lunches, setLunches] = useState(0);
+export default AddData = ({
+    navigation,
+    route,
+    setup,
+    addData,
+    editData,
+    removeData,
+    oldData,
+}) => {
+    // const date = route.params.day;
+    oldData = oldData[route.params.day];
+
+    const [isHoliday, setHoliday] = useState(oldData.isHoliday);
+    const [lunches, setLunches] = useState(oldData.lunches);
+    const [data, setData] = useState({
+        startHour: moment(oldData.startHour, "HH:mm").valueOf(),
+        startDate: moment(oldData.startDate, "DD.MM.YYYY").valueOf(),
+        finishHour: moment(oldData.finishHour, "HH:mm").valueOf(),
+        finishDate: moment(oldData.finishDate, "DD.MM.YYYY").valueOf(),
+    });
+
+    const [found, setFound] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [changesMade, setChanges] = useState(false);
-
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState("date");
     const [order, setOrder] = useState("start");
-    const [data, setData] = useState({
-        startHour: moment("10:00", "HH:mm").valueOf(),
-        startDate: moment().valueOf(),
-        finishHour: moment("15:00", "HH:mm").valueOf(),
-        finishDate: moment().valueOf(),
-    });
     const [value, setValue] = useState(moment().valueOf());
+    if (oldData === undefined) {
+        setFound(false);
+    }
 
     const onChange = (event, selected) => {
         setShow(false);
@@ -43,7 +58,6 @@ export default AddData = ({ navigation, setup, addData }) => {
                 setData({
                     ...data,
                     startDate: selected.valueOf(),
-                    finishDate: selected.valueOf(),
                 });
                 break;
             case "datefinish":
@@ -124,7 +138,7 @@ export default AddData = ({ navigation, setup, addData }) => {
         if (changesMade) {
             setShowModal(true);
         } else {
-            navigation.goBack();
+            navigation.navigate("Calendar");
         }
     };
 
@@ -132,11 +146,11 @@ export default AddData = ({ navigation, setup, addData }) => {
         <>
             <Portal.Host>
                 <Header
-                    title="Add Data"
+                    title="Edit Data"
                     onBack={() => backAction(navigation)}
                     onSave={() => {
-                        addData(compileData(setup, data, lunches, isHoliday));
-                        navigation.goBack();
+                        editData(compileData(setup, data, lunches, isHoliday));
+                        navigation.navigate("Calendar");
                     }}
                 />
                 <Card title="Date">
@@ -205,6 +219,12 @@ export default AddData = ({ navigation, setup, addData }) => {
                             }}
                         />
                     </Box>
+                    <Button
+                        onPress={() => removeData(data.startDate)}
+                        color="red"
+                    >
+                        Delete this shift!
+                    </Button>
                     {show && (
                         <DateTimePicker
                             testID="dateTimePicker"
@@ -226,7 +246,11 @@ export default AddData = ({ navigation, setup, addData }) => {
                                 </Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
-                                <Button onPress={() => navigation.goBack()}>
+                                <Button
+                                    onPress={() =>
+                                        navigation.navigate("Calendar")
+                                    }
+                                >
                                     Leave
                                 </Button>
                                 <Button onPress={() => setShowModal(false)}>

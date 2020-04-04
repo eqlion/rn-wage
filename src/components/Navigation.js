@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import Home from "../screens/HomeScreen";
-import Calendar from "../containers/CalendarContainer";
+import Calendar from "../screens/CalendarScreen";
 import Settings from "../screens/Settings";
 import Stats from "../containers/StatsContainer";
 
@@ -22,7 +22,7 @@ export default Navigation = () => (
                         size={26}
                     />
                 ),
-                title: "Home"
+                title: "Home",
             }}
         />
         <Tab.Screen
@@ -35,7 +35,7 @@ export default Navigation = () => (
                         color={color}
                         size={26}
                     />
-                )
+                ),
             }}
         />
         <Tab.Screen
@@ -48,7 +48,7 @@ export default Navigation = () => (
                         color={color}
                         size={26}
                     />
-                )
+                ),
             }}
         />
         <Tab.Screen
@@ -61,7 +61,7 @@ export default Navigation = () => (
                         color={color}
                         size={26}
                     />
-                )
+                ),
             }}
         />
     </Tab.Navigator>
