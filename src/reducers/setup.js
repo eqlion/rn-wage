@@ -11,7 +11,7 @@ const initialSetup = {
     prepayRate: 0.4,
     nightStarts: 22,
     nightEnds: 8,
-    lunchTime: 30
+    lunchTime: 30,
 };
 
 export default setup = (state = initialSetup, action) => {
@@ -19,7 +19,7 @@ export default setup = (state = initialSetup, action) => {
         case FINISH_SETUP:
             return { ...state, firstSetup: false };
         case MODIFY_SETTINGS:
-            return { ...state, ...action.data };
+            return { ...state, ...action.settings };
         default:
             return state;
     }

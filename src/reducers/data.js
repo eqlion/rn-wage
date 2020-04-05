@@ -7,6 +7,7 @@ const d = [
         startHour: "10.00",
         finishHour: "09.00",
         hours: 25.5,
+        flagged: false,
     },
 ];
 

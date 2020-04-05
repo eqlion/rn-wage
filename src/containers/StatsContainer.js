@@ -16,10 +16,6 @@ const mapStateToProps = (state) => {
     const data = state.data.filter((shift) => !shift.flagged);
     const { taxRate, baseWage } = state.setup;
     let stats = {};
-    // let months = {};
-    // for (let i = 1; i < 13; i++) {
-    //     months[i.toString()] = { hours: 0 };
-    // }
     // Calculating total hours for each year/month
     for (let shift of data) {
         let [day, month, year] = shift.startDate.split(".");
@@ -39,6 +35,7 @@ const mapStateToProps = (state) => {
 
     const sortedDates = Object.keys(stats).sort(sortDates);
 
+    // Formatting the data for the plotting
     const sortedHours = sortedDates.map((date) => stats[date].hours.toString());
     const hours = {
         labels: sortedDates,

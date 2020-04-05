@@ -24,10 +24,6 @@ export default AddData = ({
 }) => {
     const date = route.params.day;
     oldData = oldData.find((i) => i.startDate === date);
-    console.log(oldData);
-    if (oldData === undefined) {
-        navigation.navigate("Calendar");
-    }
 
     const [isHoliday, setHoliday] = useState(oldData.isHoliday);
     const [lunches, setLunches] = useState(oldData.lunches);
@@ -218,6 +214,7 @@ export default AddData = ({
                             }}
                         />
                     </Box>
+                    <Divider />
                     <Button
                         onPress={() => {
                             navigation.navigate("Calendar");
@@ -226,6 +223,7 @@ export default AddData = ({
                             );
                         }}
                         color="red"
+                        mode="outlined"
                     >
                         Delete this shift!
                     </Button>

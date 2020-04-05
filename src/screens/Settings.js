@@ -1,9 +1,8 @@
-import React from "react";
-import { Paragraph } from "react-native-paper";
-import Header from "../components/Header";
-import Card from "../components/Card";
+import * as React from "react";
+import { Paragraph, Checkbox } from "react-native-paper";
+import { Header, Card, Box } from "../components";
 
-export default Settings = () => {
+export default Settings = ({ setup, modifySettings }) => {
     return (
         <>
             <Header title="Settings" />
