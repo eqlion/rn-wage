@@ -117,6 +117,7 @@ export default AddData = ({ navigation, setup, addData }) => {
             hours,
             lunches,
             isHoliday,
+            flagged: false,
         };
     };
 

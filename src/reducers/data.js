@@ -13,12 +13,22 @@ const d = [
 export default data = (state = [], action) => {
     switch (action.type) {
         case ADD_DATA:
-            return [...state, action.data];
+            return [...state.filter((shift) => !shift.flagged), action.data];
         case REMOVE_DATA:
-            return state.filter((data) => data.date !== action.date);
+            const oldData = state.find(
+                (shift) => shift.startDate === action.date
+            );
+            oldData.flagged = true;
+
+            return [
+                ...state.filter((shift) => shift.startDate !== action.date),
+                oldData,
+            ];
         case EDIT_DATA:
             return [
-                ...state.filter((data) => data.date !== action.data.date),
+                ...state.filter(
+                    (data) => data.startDate !== action.data.startDate
+                ),
                 action.data,
             ];
         default:

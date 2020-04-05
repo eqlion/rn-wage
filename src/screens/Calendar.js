@@ -1,7 +1,7 @@
 import React from "react";
 import { Paragraph } from "react-native-paper";
 import { Calendar } from "react-native-calendars";
-import { Card, Header, CustomDay } from "../components";
+import { Card, Header } from "../components";
 
 export default CalendarScreen = ({ navigation, markedDates }) => {
     return (
@@ -14,6 +14,7 @@ export default CalendarScreen = ({ navigation, markedDates }) => {
                             day: day.dateString.split("-").reverse().join("."),
                         })
                     }
+                    disabledByDefault={true}
                     markedDates={markedDates}
                 />
             </Card>

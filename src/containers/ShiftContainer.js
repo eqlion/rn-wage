@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Shift from "../screens/Shift";
 
-import { addData, editData, removeData } from "../actions";
+import { editData, removeData } from "../actions";
 
 const mapStateToProps = (state) => ({
     setup: state.setup,
@@ -9,7 +9,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    addData,
     editData,
     removeData,
 };

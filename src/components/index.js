@@ -4,6 +4,5 @@ import DateButton from "./DateButton";
 import FAB from "./FAB";
 import Header from "./Header";
 import Chart from "./Chart";
-import CustomDay from "./CustomDay";
 
-export { Box, Card, DateButton, FAB, Header, Chart, CustomDay };
+export { Box, Card, DateButton, FAB, Header, Chart };

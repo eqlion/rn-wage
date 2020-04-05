@@ -18,13 +18,16 @@ export default AddData = ({
     navigation,
     route,
     setup,
-    addData,
     editData,
     removeData,
     oldData,
 }) => {
-    // const date = route.params.day;
-    oldData = oldData[route.params.day];
+    const date = route.params.day;
+    oldData = oldData.find((i) => i.startDate === date);
+    console.log(oldData);
+    if (oldData === undefined) {
+        navigation.navigate("Calendar");
+    }
 
     const [isHoliday, setHoliday] = useState(oldData.isHoliday);
     const [lunches, setLunches] = useState(oldData.lunches);
@@ -34,17 +37,12 @@ export default AddData = ({
         finishHour: moment(oldData.finishHour, "HH:mm").valueOf(),
         finishDate: moment(oldData.finishDate, "DD.MM.YYYY").valueOf(),
     });
-
-    const [found, setFound] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [changesMade, setChanges] = useState(false);
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState("date");
     const [order, setOrder] = useState("start");
     const [value, setValue] = useState(moment().valueOf());
-    if (oldData === undefined) {
-        setFound(false);
-    }
 
     const onChange = (event, selected) => {
         setShow(false);
@@ -131,6 +129,7 @@ export default AddData = ({
             hours,
             lunches,
             isHoliday,
+            flagged: false,
         };
     };
 
@@ -220,7 +219,12 @@ export default AddData = ({
                         />
                     </Box>
                     <Button
-                        onPress={() => removeData(data.startDate)}
+                        onPress={() => {
+                            navigation.navigate("Calendar");
+                            removeData(
+                                moment(data.startDate).format("DD.MM.YYYY")
+                            );
+                        }}
                         color="red"
                     >
                         Delete this shift!

@@ -43,7 +43,7 @@ const filterDates = (first, second) => {
     }
 };
 
-const moveToFriday = date => {
+const moveToFriday = (date) => {
     // If this date is yet to come
     if (
         moment(`${date}.${moment().month() + 1}.15`, "DD.MM.HH").diff(
@@ -73,14 +73,13 @@ const calculatePrepay = (data, settings) => {
     if (moment().format("D") < prepayDate) {
         month = moment().format("M");
     } else {
-        month = moment()
-            .add(1, "months")
-            .format("M");
+        month = moment().add(1, "months").format("M");
     }
     const currentShifts = data.filter(
-        shift =>
+        (shift) =>
             moment(shift.startDate, "DD.MM.YYYY").format("M") === month &&
-            moment(shift.startDate, "DD.MM.YYYY").format("D") < prepayDate
+            moment(shift.startDate, "DD.MM.YYYY").format("D") < prepayDate &&
+            !shift.flagged
     );
     for (let shift of currentShifts) {
         hours += shift.hours;
@@ -97,12 +96,12 @@ const calculateSalary = (data, settings) => {
     if (moment().format("D") > salaryDate) {
         month = moment().format("M");
     } else {
-        month = moment()
-            .subtract(1, "months")
-            .format("M");
+        month = moment().subtract(1, "months").format("M");
     }
     const currentShifts = data.filter(
-        shift => moment(shift.startDate, "DD.MM.YYYY").format("M") === month
+        (shift) =>
+            moment(shift.startDate, "DD.MM.YYYY").format("M") === month &&
+            !shift.flagged
     );
     for (let shift of currentShifts) {
         hours += shift.hours;
@@ -110,7 +109,7 @@ const calculateSalary = (data, settings) => {
     return hours * (1 - prepayRate) * (1 - taxRate) * baseWage;
 };
 
-const salaryDate = date => {
+const salaryDate = (date) => {
     date = moveToFriday(date);
     const now = parseInt(moment().format("D"));
     if (now < date) {
@@ -118,13 +117,11 @@ const salaryDate = date => {
     } else if (now === date) {
         return moment("15", "HH").calendar();
     } else {
-        return moment(`${date}, 15`, "DD, HH")
-            .add(1, "months")
-            .calendar();
+        return moment(`${date}, 15`, "DD, HH").add(1, "months").calendar();
     }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     const { setup, data } = state;
     const salary = calculateSalary(data, setup);
     const prepay = calculatePrepay(data, setup);
@@ -132,7 +129,7 @@ const mapStateToProps = state => {
         nextSalaryDate: salaryDate(setup.salaryDate),
         nextPrepayDate: salaryDate(setup.prepayDate),
         nextPrepay: prepay,
-        nextSalary: salary
+        nextSalary: salary,
     };
 };
 
