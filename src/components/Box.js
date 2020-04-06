@@ -7,8 +7,8 @@ export default Box = ({ children, style }) => {
             style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "baseline",
-                ...style
+                alignItems: "center",
+                ...style,
             }}
         >
             {children}

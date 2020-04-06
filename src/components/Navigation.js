@@ -2,7 +2,7 @@ import * as React from "react";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import Home from "../screens/HomeScreen";
 import Calendar from "../screens/CalendarScreen";
-import Settings from "../screens/Settings";
+import Settings from "../containers/SettingsContainer";
 import Stats from "../containers/StatsContainer";
 
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
