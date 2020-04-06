@@ -4,6 +4,7 @@ import Settings from "../screens/Settings";
 
 const mapStateToProps = (state) => ({
     setup: state.setup,
+    theme: state.theme,
 });
 
 const mapDispatchToProps = {

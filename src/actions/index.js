@@ -1,5 +1,4 @@
 import {
-    FINISH_SETUP,
     ADD_DATA,
     THEME,
     REMOVE_DATA,
@@ -23,11 +22,7 @@ export const editData = (data) => ({
     data,
 });
 
-// Settings action creators
-export const finishSetup = () => ({
-    type: FINISH_SETUP,
-});
-
+// Settings action creator
 export const modifySettings = (settings) => ({
     type: MODIFY_SETTINGS,
     settings,

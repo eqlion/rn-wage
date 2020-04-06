@@ -3,11 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { connect } from "react-redux";
 
-import Navigation from "../components/Navigation";
+import Navigation from "../containers/NavigationContainer";
 import Settings from "../containers/SettingsContainer";
 
-const Provider = ({ initialSetup }) => (
-    <PaperProvider>
+import { lightTheme, darkTheme } from "../styles";
+
+const Provider = ({ initialSetup, theme }) => (
+    <PaperProvider theme={theme ? lightTheme : darkTheme}>
         <NavigationContainer>
             {initialSetup ? <Settings /> : <Navigation />}
         </NavigationContainer>
@@ -16,6 +18,7 @@ const Provider = ({ initialSetup }) => (
 
 const mapStateToProps = (state) => ({
     initialSetup: state.setup.firstSetup,
+    theme: state.theme,
 });
 
 export default connect(mapStateToProps)(Provider);

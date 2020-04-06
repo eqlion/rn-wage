@@ -1,10 +1,10 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Paragraph } from "react-native-paper";
 import { Card, Chart, Header } from "../components";
 
-export default Stats = ({ hours, total, earned }) => (
-    <>
+export default Stats = ({ hours, total, earned, theme }) => (
+    <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
         <Header title="Stats" />
         {hours.labels.length === 0 ? (
             <Card title="Stats">
@@ -15,5 +15,5 @@ export default Stats = ({ hours, total, earned }) => (
                 <Chart hours={hours} total={total} earned={earned} />
             </ScrollView>
         )}
-    </>
+    </View>
 );

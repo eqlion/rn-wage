@@ -2,17 +2,22 @@ import React from "react";
 import { View } from "react-native";
 import { Paragraph } from "react-native-paper";
 import { Header, FAB, Card } from "../components";
-
 export default Home = ({
     navigation,
     nextSalaryDate,
     nextPrepayDate,
     nextSalary,
-    nextPrepay
+    nextPrepay,
+    theme,
+    changeTheme,
 }) => {
     return (
-        <>
-            <Header title="Home" />
+        <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
+            <Header
+                title="Home"
+                theme={theme}
+                onThemeChange={() => changeTheme()}
+            />
             <View>
                 <Card title="Prepay">
                     <Paragraph>
@@ -28,6 +33,6 @@ export default Home = ({
                 </Card>
             </View>
             <FAB onPress={() => navigation.navigate("Add Data")} />
-        </>
+        </View>
     );
 };

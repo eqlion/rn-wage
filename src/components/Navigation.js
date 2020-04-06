@@ -1,5 +1,6 @@
 import * as React from "react";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
+import color from "color";
 import Home from "../screens/HomeScreen";
 import Calendar from "../screens/CalendarScreen";
 import Settings from "../containers/SettingsContainer";
@@ -9,8 +10,14 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default Navigation = () => (
-    <Tab.Navigator initialRouteName="Home" backBehavior="initialRoute">
+export default Navigation = ({ theme }) => (
+    <Tab.Navigator
+        initialRouteName="Home"
+        backBehavior="initialRoute"
+        barStyle={{
+            backgroundColor: theme ? "#4caf50" : "#121212",
+        }}
+    >
         <Tab.Screen
             name="Home"
             component={Home}

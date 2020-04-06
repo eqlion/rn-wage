@@ -1,10 +1,11 @@
 import React from "react";
+import { View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { Card, Header } from "../components";
 
-export default CalendarScreen = ({ navigation, markedDates }) => {
+export default CalendarScreen = ({ navigation, markedDates, theme }) => {
     return (
-        <>
+        <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
             <Header title="Calendar" />
             <Card title="Calendar">
                 <Calendar
@@ -17,6 +18,6 @@ export default CalendarScreen = ({ navigation, markedDates }) => {
                     markedDates={markedDates}
                 />
             </Card>
-        </>
+        </View>
     );
 };

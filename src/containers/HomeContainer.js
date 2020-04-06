@@ -2,6 +2,8 @@ import Home from "../screens/Home";
 import { connect } from "react-redux";
 import moment from "moment";
 
+import { changeTheme } from "../actions";
+
 // const data = [
 //     {
 //         startDate: "11.03.2020",
@@ -29,19 +31,6 @@ import moment from "moment";
 //     prepayDate: 25,
 //     prepayRate: 0.4
 // };
-
-// date = "dd.mm"
-const filterDates = (first, second) => {
-    let [d1, m1] = first.split(".");
-    let [d2, m2] = second.split(".");
-    first = `${m1}.${d1}`;
-    second = `${m2}.${d2}`;
-    if (first > second) {
-        return 1;
-    } else {
-        return -1;
-    }
-};
 
 const moveToFriday = (date) => {
     // If this date is yet to come
@@ -122,7 +111,7 @@ const salaryDate = (date) => {
 };
 
 const mapStateToProps = (state) => {
-    const { setup, data } = state;
+    const { setup, data, theme } = state;
     const salary = calculateSalary(data, setup);
     const prepay = calculatePrepay(data, setup);
     return {
@@ -130,7 +119,12 @@ const mapStateToProps = (state) => {
         nextPrepayDate: salaryDate(setup.prepayDate),
         nextPrepay: prepay,
         nextSalary: salary,
+        theme,
     };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = {
+    changeTheme,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

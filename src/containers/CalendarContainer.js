@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
         };
     }
 
-    return { markedDates };
+    return { markedDates, theme: state.theme };
 };
 
 export default connect(mapStateToProps)(Calendar);

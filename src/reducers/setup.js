@@ -1,4 +1,4 @@
-import { FINISH_SETUP, MODIFY_SETTINGS } from "../actions/actionTypes";
+import { MODIFY_SETTINGS } from "../actions/actionTypes";
 
 const initialSetup = {
     firstSetup: false,
@@ -16,8 +16,6 @@ const initialSetup = {
 
 export default setup = (state = initialSetup, action) => {
     switch (action.type) {
-        case FINISH_SETUP:
-            return { ...state, firstSetup: false };
         case MODIFY_SETTINGS:
             return { ...state, ...action.settings };
         default:

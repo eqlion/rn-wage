@@ -153,7 +153,9 @@ export default class Settings extends React.Component {
                         this.setShowSnack();
                     }}
                 />
-                <ScrollView>
+                <ScrollView
+                    backgroundColor={this.props.theme ? "white" : "#121212"}
+                >
                     <Card title="Change settings">
                         <NumericInput
                             value={baseWage.toString()}

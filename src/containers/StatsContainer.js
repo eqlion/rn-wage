@@ -58,6 +58,7 @@ const mapStateToProps = (state) => {
         hours,
         total,
         earned,
+        theme: state.theme,
     };
 };
 
