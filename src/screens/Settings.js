@@ -124,6 +124,7 @@ export default class Settings extends React.Component {
         prepayRate: this.state.prepayRate / 100,
         nightStarts: moment(this.state.nightStarts).format("HH:mm"),
         nightEnds: moment(this.state.nightEnds).format("HH:mm"),
+        firstSetup: false,
     });
 
     render() {

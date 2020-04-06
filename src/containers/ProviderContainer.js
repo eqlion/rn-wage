@@ -4,18 +4,18 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { connect } from "react-redux";
 
 import Navigation from "../components/Navigation";
-import Settings from "../screens/Settings";
+import Settings from "../containers/SettingsContainer";
 
 const Provider = ({ initialSetup }) => (
     <PaperProvider>
         <NavigationContainer>
-            {!initialSetup ? <Settings /> : <Navigation />}
+            {initialSetup ? <Settings /> : <Navigation />}
         </NavigationContainer>
     </PaperProvider>
 );
 
-const mapStateToProps = state => ({
-    initialSetup: state.setup.firstSetup
+const mapStateToProps = (state) => ({
+    initialSetup: state.setup.firstSetup,
 });
 
 export default connect(mapStateToProps)(Provider);

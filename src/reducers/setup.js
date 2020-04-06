@@ -1,7 +1,7 @@
 import { FINISH_SETUP, MODIFY_SETTINGS } from "../actions/actionTypes";
 
 const initialSetup = {
-    firstSetup: true,
+    firstSetup: false,
     baseWage: 148,
     holidayWage: 2,
     nightWage: 1.2,
