@@ -1,28 +1,32 @@
 {
-  "expo": {
-    "name": "Wage",
-    "slug": "wage",
-    "privacy": "public",
-    "sdkVersion": "37.0.0",
-    "platforms": [
-      "android"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
+    "expo": {
+        "name": "Wage",
+        "slug": "wage",
+        "privacy": "public",
+        "sdkVersion": "37.0.0",
+        "platforms": ["android"],
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "description": "App to calculate the salary",
+        "primaryColor": "#4caf50",
+        "githubUrl": "https://github.com/eqlion/rn-wage",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "android": {
+            "package": "com.eqlion.wage",
+            "versionCode": 1,
+            "adaptiveIcon": {
+                "backgroundColor": "#ffffff",
+                "foregroundImage": "./assets/icon-fg.png"
+            }
+        }
     }
-  }
 }
