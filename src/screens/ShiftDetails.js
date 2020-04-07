@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import { View } from "react-native";
 import {
     Paragraph,
     Title,
@@ -9,30 +9,46 @@ import {
     Button,
     Portal,
 } from "react-native-paper";
-import { Dropdown } from "react-native-material-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
-import { Card, Box, Header, DateButton } from "../components";
+import { Card, Box, Header, DateButton, NumericInput } from "../components";
 
-export default AddData = ({
+export default ShiftDetails = ({
     navigation,
     route,
     setup,
+    addData,
     editData,
     removeData,
     oldData,
+    theme,
+    add_,
 }) => {
-    const date = route.params.day;
-    oldData = oldData.find((i) => i.startDate === date);
+    if (!add_) {
+        const date = route.params.day;
+        oldData = oldData.find((i) => i.startDate === date);
+    }
+    const [isHoliday, setHoliday] = add_
+        ? useState(false)
+        : useState(oldData.isHoliday);
+    const [lunches, setLunches] = add_
+        ? useState(0)
+        : useState(oldData.lunches);
+    const [data, setData] = add_
+        ? useState({
+              startHour: moment("10:00", "HH:mm").valueOf(),
+              startDate: moment().valueOf(),
+              finishHour: moment("15:00", "HH:mm").valueOf(),
+              finishDate: moment().valueOf(),
+          })
+        : useState({
+              startHour: moment(oldData.startHour, "HH:mm").valueOf(),
+              startDate: moment(oldData.startDate, "DD.MM.YYYY").valueOf(),
+              finishHour: moment(oldData.finishHour, "HH:mm").valueOf(),
+              finishDate: moment(oldData.finishDate, "DD.MM.YYYY").valueOf(),
+          });
 
-    const [isHoliday, setHoliday] = useState(oldData.isHoliday);
-    const [lunches, setLunches] = useState(oldData.lunches);
-    const [data, setData] = useState({
-        startHour: moment(oldData.startHour, "HH:mm").valueOf(),
-        startDate: moment(oldData.startDate, "DD.MM.YYYY").valueOf(),
-        finishHour: moment(oldData.finishHour, "HH:mm").valueOf(),
-        finishDate: moment(oldData.finishDate, "DD.MM.YYYY").valueOf(),
-    });
     const [showModal, setShowModal] = useState(false);
     const [changesMade, setChanges] = useState(false);
     const [show, setShow] = useState(false);
@@ -49,10 +65,19 @@ export default AddData = ({
         }
         switch (mode + order) {
             case "datestart":
-                setData({
-                    ...data,
-                    startDate: selected.valueOf(),
-                });
+                if (add_) {
+                    setData({
+                        ...data,
+                        startDate: selected.valueOf(),
+                        finishDate: selected.valueOf(),
+                    });
+                } else {
+                    setData({
+                        ...data,
+                        startDate: selected.valueOf(),
+                    });
+                }
+
                 break;
             case "datefinish":
                 setData({ ...data, finishDate: selected.valueOf() });
@@ -132,20 +157,31 @@ export default AddData = ({
     const backAction = (navigation) => {
         if (changesMade) {
             setShowModal(true);
+        } else if (add_) {
+            navigation.goBack();
         } else {
             navigation.navigate("Calendar");
         }
     };
 
     return (
-        <>
+        <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
             <Portal.Host>
                 <Header
-                    title="Edit Data"
+                    title={add_ ? "Add Data" : "Edit Data"}
                     onBack={() => backAction(navigation)}
                     onSave={() => {
-                        editData(compileData(setup, data, lunches, isHoliday));
-                        navigation.navigate("Calendar");
+                        if (add_) {
+                            addData(
+                                compileData(setup, data, lunches, isHoliday)
+                            );
+                            navigation.goBack();
+                        } else {
+                            editData(
+                                compileData(setup, data, lunches, isHoliday)
+                            );
+                            navigation.navigate("Calendar");
+                        }
                     }}
                 />
                 <Card title="Date">
@@ -195,14 +231,10 @@ export default AddData = ({
                     </Box>
                     <Divider />
                     <Title>Options</Title>
-                    <Dropdown
-                        label="Launches"
-                        data={[{ value: 0 }, { value: 1 }, { value: 2 }]}
-                        defaultValue="0"
-                        onChangeText={(value) => {
-                            setLunches(value);
-                            setChanges(true);
-                        }}
+                    <NumericInput
+                        value={lunches.toString()}
+                        onChangeText={(i) => setLunches(i)}
+                        label="Lunches"
                     />
                     <Box style={{ marginTop: 5 }}>
                         <Paragraph>Holiday</Paragraph>
@@ -214,19 +246,25 @@ export default AddData = ({
                             }}
                         />
                     </Box>
-                    <Divider />
-                    <Button
-                        onPress={() => {
-                            navigation.navigate("Calendar");
-                            removeData(
-                                moment(data.startDate).format("DD.MM.YYYY")
-                            );
-                        }}
-                        color="red"
-                        mode="outlined"
-                    >
-                        Delete this shift!
-                    </Button>
+                    {!add_ && (
+                        <>
+                            <Divider />
+                            <Button
+                                onPress={() => {
+                                    navigation.navigate("Calendar");
+                                    removeData(
+                                        moment(data.startDate).format(
+                                            "DD.MM.YYYY"
+                                        )
+                                    );
+                                }}
+                                color="red"
+                                mode="outlined"
+                            >
+                                Delete this shift!
+                            </Button>
+                        </>
+                    )}
                     {show && (
                         <DateTimePicker
                             testID="dateTimePicker"
@@ -250,7 +288,9 @@ export default AddData = ({
                             <Dialog.Actions>
                                 <Button
                                     onPress={() =>
-                                        navigation.navigate("Calendar")
+                                        add_
+                                            ? navigation.goBack()
+                                            : navigation.navigate("Calendar")
                                     }
                                 >
                                     Leave
@@ -263,6 +303,6 @@ export default AddData = ({
                     </Portal>
                 </Card>
             </Portal.Host>
-        </>
+        </View>
     );
 };
