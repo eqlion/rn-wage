@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { Card, Header } from "../components";
+
+import { calendar } from "../styles";
 
 export default CalendarScreen = ({ navigation, markedDates, theme }) => {
     return (
         <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
             <Header title="Calendar" />
-            <Card title="Calendar">
+            <Card>
                 <Calendar
-                    onDayPress={(day) =>
-                        navigation.navigate("Shift", {
-                            day: day.dateString.split("-").reverse().join("."),
-                        })
-                    }
-                    disabledByDefault={true}
+                    key={`${theme}`}
+                    theme={calendar(theme).theme}
+                    style={calendar(theme).style}
+                    onDayPress={(day) => {
+                        if (Object.keys(markedDates).includes(day.dateString)) {
+                            navigation.navigate("Shift", {
+                                day: day.dateString
+                                    .split("-")
+                                    .reverse()
+                                    .join("."),
+                            });
+                        }
+                    }}
                     markedDates={markedDates}
                 />
             </Card>
