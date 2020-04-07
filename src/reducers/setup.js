@@ -1,6 +1,6 @@
 import { MODIFY_SETTINGS } from "../actions/actionTypes";
 
-const initialSetup = {
+const devState = {
     firstSetup: false,
     baseWage: 148,
     holidayWage: 2,
@@ -14,7 +14,21 @@ const initialSetup = {
     lunchTime: 30,
 };
 
-export default setup = (state = initialSetup, action) => {
+const initialSetup = {
+    firstSetup: true,
+    baseWage: 0,
+    holidayWage: 1,
+    nightWage: 1,
+    taxRate: 0,
+    salaryDate: 0,
+    prepayDate: 0,
+    prepayRate: 0,
+    nightStarts: 22,
+    nightEnds: 8,
+    lunchTime: 0,
+};
+
+export default setup = (state = devState, action) => {
     switch (action.type) {
         case MODIFY_SETTINGS:
             return { ...state, ...action.settings };

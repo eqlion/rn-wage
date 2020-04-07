@@ -120,6 +120,7 @@ const mapStateToProps = (state) => {
         nextPrepay: Math.round(prepay * 100) / 100,
         nextSalary: Math.round(salary * 100) / 100,
         theme,
+        prepayDate: state.setup.prepayDate,
     };
 };
 

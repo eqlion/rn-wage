@@ -45,7 +45,6 @@ export const calendar = (theme) => ({
 export const view = (theme) => ({
     flex: 1,
     backgroundColor: theme ? "white" : "#121212",
-    marginBottom: 4,
 });
 
 export const chart = (theme) => ({
@@ -66,3 +65,7 @@ export const chart = (theme) => ({
                 : `rgba(255, 255, 255, ${opacity})`,
     },
 });
+
+export const divider = {
+    marginVertical: 4,
+};

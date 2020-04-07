@@ -10,6 +10,7 @@ import {
     Portal,
 } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
+
 import moment from "moment";
 
 import { Card, Box, Header, DateButton, NumericInput } from "../components";
@@ -109,6 +110,7 @@ export default ShiftDetails = ({
     };
 
     const compileData = (setup, data, lunches, isHoliday) => {
+        lunches = parseInt(lunches);
         const {
             holidayWage,
             nightWage,
@@ -238,7 +240,7 @@ export default ShiftDetails = ({
                         onChangeText={(i) => setLunches(i)}
                         label="Lunches"
                     />
-                    <Box style={{ marginTop: 5 }}>
+                    <Box>
                         <Paragraph>Holiday</Paragraph>
                         <Checkbox
                             status={isHoliday ? "checked" : "unchecked"}

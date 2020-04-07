@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ScrollView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Paragraph, Snackbar, Checkbox } from "react-native-paper";
+import { Paragraph, Snackbar, Checkbox, Divider } from "react-native-paper";
 import moment from "moment";
 import { Header, Card, Box, NumericInput, DateButton } from "../components";
-
+import { divider } from "../styles";
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);
@@ -118,6 +118,10 @@ export default class Settings extends React.Component {
         this.setState({ showSnack: !showSnack });
     };
 
+    setLunchTime = (lunchTime) => {
+        this.setState({ lunchTime });
+    };
+
     compileData = () => ({
         ...this.state,
         taxRate: this.state.taxRate / 100,
@@ -129,6 +133,7 @@ export default class Settings extends React.Component {
 
     render() {
         const {
+            firstSetup,
             baseWage,
             isHolidayWage,
             holidayWage,
@@ -143,11 +148,12 @@ export default class Settings extends React.Component {
             prepayDate,
             salaryDate,
             showSnack,
+            lunchTime,
         } = this.state;
         return (
             <>
                 <Header
-                    title="Settings"
+                    title={firstSetup ? "First setup" : "Settings"}
                     onSave={() => {
                         this.modifySettings(this.compileData());
                         this.setShowSnack();
@@ -156,13 +162,28 @@ export default class Settings extends React.Component {
                 <ScrollView
                     backgroundColor={this.props.theme ? "white" : "#121212"}
                 >
-                    <Card title="Change settings">
+                    <Card
+                        title={
+                            firstSetup
+                                ? "Enter your settings"
+                                : "Change settings"
+                        }
+                    >
+                        {firstSetup && (
+                            <>
+                                <Paragraph>
+                                    You will be able to change them later!
+                                </Paragraph>
+                                <Divider style={divider} />
+                            </>
+                        )}
                         <NumericInput
                             value={baseWage.toString()}
                             onChangeText={(wage) => this.setWage(wage)}
                             label="Base wage"
                         />
 
+                        <Divider style={divider} />
                         <Box>
                             <Paragraph>Do you have a holiday wage?</Paragraph>
                             <Checkbox
@@ -180,6 +201,7 @@ export default class Settings extends React.Component {
                             />
                         )}
 
+                        <Divider style={divider} />
                         <Box>
                             <Paragraph>Do you have a night wage?</Paragraph>
                             <Checkbox
@@ -224,12 +246,14 @@ export default class Settings extends React.Component {
                             </>
                         )}
 
+                        <Divider style={divider} />
                         <NumericInput
                             value={taxRate.toString()}
                             onChangeText={(tax) => this.setTaxRate(tax)}
                             label="Taxes, in %"
                         />
 
+                        <Divider style={divider} />
                         <Box>
                             <Paragraph>Salary is paid in two parts</Paragraph>
                             <Checkbox
@@ -259,6 +283,12 @@ export default class Settings extends React.Component {
                             value={salaryDate.toString()}
                             onChangeText={(day) => this.setSalaryDate(day)}
                             label="The salary is on"
+                        />
+                        <Divider style={divider} />
+                        <NumericInput
+                            value={lunchTime.toString()}
+                            onChangeText={(time) => this.setLunchTime(time)}
+                            label="Lunch break length, in min"
                         />
                     </Card>
                     {showPicker && (

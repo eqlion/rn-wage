@@ -13,6 +13,7 @@ export default Home = ({
     nextPrepay,
     theme,
     changeTheme,
+    prepayDate,
 }) => {
     return (
         <View style={view(theme)}>
@@ -21,20 +22,22 @@ export default Home = ({
                 theme={theme}
                 onThemeChange={() => changeTheme()}
             />
-            <View>
-                <Card title="Prepay">
-                    <Paragraph>
-                        The next prepay is going to be: {nextPrepayDate}.
-                    </Paragraph>
-                    <Paragraph>It's going to be {nextPrepay}.</Paragraph>
-                </Card>
+            <>
+                {prepayDate !== 0 && (
+                    <Card title="Prepay">
+                        <Paragraph>
+                            The next prepay is going to be: {nextPrepayDate}.
+                        </Paragraph>
+                        <Paragraph>It's going to be {nextPrepay}.</Paragraph>
+                    </Card>
+                )}
                 <Card title="Salary">
                     <Paragraph>
                         The next salary is going to be: {nextSalaryDate}.
                     </Paragraph>
                     <Paragraph>It's going to be {nextSalary}.</Paragraph>
                 </Card>
-            </View>
+            </>
             <FAB onPress={() => navigation.navigate("Add Data")} />
         </View>
     );
