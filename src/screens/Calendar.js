@@ -3,11 +3,11 @@ import { View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { Card, Header } from "../components";
 
-import { calendar } from "../styles";
+import { calendar, view } from "../styles";
 
 export default CalendarScreen = ({ navigation, markedDates, theme }) => {
     return (
-        <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
+        <View style={view(theme)}>
             <Header title="Calendar" />
             <Card>
                 <Calendar

@@ -41,3 +41,28 @@ export const calendar = (theme) => ({
     },
     style: { borderRadius: 4, overflow: "hidden" },
 });
+
+export const view = (theme) => ({
+    flex: 1,
+    backgroundColor: theme ? "white" : "#121212",
+    marginBottom: 4,
+});
+
+export const chart = (theme) => ({
+    style: {
+        marginVertical: 8,
+        borderRadius: 4,
+    },
+    config: {
+        backgroundGradientFrom: theme ? "#ffffff" : "#1E1E1E",
+        backgroundGradientTo: theme ? "#ffffff" : "#1E1E1E",
+        color: (opacity = 1) =>
+            theme
+                ? `rgba(76, 175, 80, ${opacity})`
+                : `rgba(197, 225, 165, ${opacity})`,
+        labelColor: (opacity = 1) =>
+            theme
+                ? `rgba(0, 0, 0, ${opacity})`
+                : `rgba(255, 255, 255, ${opacity})`,
+    },
+});

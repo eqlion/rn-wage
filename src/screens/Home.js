@@ -2,6 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import { Paragraph } from "react-native-paper";
 import { Header, FAB, Card } from "../components";
+
+import { view } from "../styles";
+
 export default Home = ({
     navigation,
     nextSalaryDate,
@@ -12,7 +15,7 @@ export default Home = ({
     changeTheme,
 }) => {
     return (
-        <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
+        <View style={view(theme)}>
             <Header
                 title="Home"
                 theme={theme}

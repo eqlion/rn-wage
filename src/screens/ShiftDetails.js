@@ -14,6 +14,8 @@ import moment from "moment";
 
 import { Card, Box, Header, DateButton, NumericInput } from "../components";
 
+import { view } from "../styles";
+
 export default ShiftDetails = ({
     navigation,
     route,
@@ -165,7 +167,7 @@ export default ShiftDetails = ({
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: theme ? "white" : "#121212" }}>
+        <View style={view(theme)}>
             <Portal.Host>
                 <Header
                     title={add_ ? "Add Data" : "Edit Data"}
