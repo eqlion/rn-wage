@@ -16,6 +16,7 @@ import moment from "moment";
 import { Card, Box, Header, DateButton, NumericInput } from "../components";
 
 import { view } from "../styles";
+import i18n from "../i18n";
 
 export default ShiftDetails = ({
     navigation,
@@ -172,7 +173,7 @@ export default ShiftDetails = ({
         <View style={view(theme)}>
             <Portal.Host>
                 <Header
-                    title={add_ ? "Add Data" : "Edit Data"}
+                    title={add_ ? i18n.t("ADD_DATA") : i18n.t("EDIT_DATA")}
                     onBack={() => backAction(navigation)}
                     onSave={() => {
                         if (add_) {
@@ -188,7 +189,7 @@ export default ShiftDetails = ({
                         }
                     }}
                 />
-                <Card title="Date">
+                <Card title={i18n.t("DATE")}>
                     <Box>
                         <DateButton
                             onPress={() => {
@@ -234,14 +235,14 @@ export default ShiftDetails = ({
                         </DateButton>
                     </Box>
                     <Divider />
-                    <Title>Options</Title>
+                    <Title>{i18n.t("OPTIONS")}</Title>
                     <NumericInput
                         value={lunches.toString()}
                         onChangeText={(i) => setLunches(i)}
                         label="Lunches"
                     />
                     <Box>
-                        <Paragraph>Holiday</Paragraph>
+                        <Paragraph>{i18n.t("HOLIDAY")}</Paragraph>
                         <Checkbox
                             status={isHoliday ? "checked" : "unchecked"}
                             onPress={() => {
@@ -265,7 +266,7 @@ export default ShiftDetails = ({
                                 color="red"
                                 mode="outlined"
                             >
-                                Delete this shift!
+                                {i18n.t("DELETE")}
                             </Button>
                         </>
                     )}
@@ -286,7 +287,7 @@ export default ShiftDetails = ({
                             <Dialog.Title>Alert</Dialog.Title>
                             <Dialog.Content>
                                 <Paragraph>
-                                    You are leaving without saving the changes
+                                    {i18n.t("LEAVE_WO_SAVING")}
                                 </Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
@@ -297,10 +298,10 @@ export default ShiftDetails = ({
                                             : navigation.navigate("Calendar")
                                     }
                                 >
-                                    Leave
+                                    {i18n.t("LEAVE")}
                                 </Button>
                                 <Button onPress={() => setShowModal(false)}>
-                                    Cancel
+                                    {i18n.t("CANCEL")}
                                 </Button>
                             </Dialog.Actions>
                         </Dialog>

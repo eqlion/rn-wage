@@ -4,6 +4,7 @@ import { BarChart } from "react-native-chart-kit";
 import Card from "./Card";
 
 import { chart } from "../styles";
+import i18n from "../i18n";
 
 export default Chart = ({ hours, total, earned, theme }) => {
     const x = hours.labels;
@@ -16,7 +17,7 @@ export default Chart = ({ hours, total, earned, theme }) => {
 
     return (
         <>
-            <Card title="Hours">
+            <Card title={i18n.t("HOURS")}>
                 <ScrollView horizontal={true}>
                     <BarChart
                         style={chart(theme).style}
@@ -28,7 +29,7 @@ export default Chart = ({ hours, total, earned, theme }) => {
                     />
                 </ScrollView>
             </Card>
-            <Card title="Total earnings">
+            <Card title={i18n.t("TOTAL")}>
                 <ScrollView horizontal={true}>
                     <BarChart
                         style={chart(theme).style}
@@ -40,7 +41,7 @@ export default Chart = ({ hours, total, earned, theme }) => {
                     />
                 </ScrollView>
             </Card>
-            <Card title="After taxation">
+            <Card title={i18n.t("AFTER")}>
                 <ScrollView horizontal={true}>
                     <BarChart
                         style={chart(theme).style}

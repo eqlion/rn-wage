@@ -1,8 +1,11 @@
 import Home from "../screens/Home";
 import { connect } from "react-redux";
 import moment from "moment";
-
+// import momentRU from "moment/locale/ru";
 import { changeTheme } from "../actions";
+
+// moment.updateLocale("ru", momentRU);
+// console.log(momentRU);
 
 // const data = [
 //     {

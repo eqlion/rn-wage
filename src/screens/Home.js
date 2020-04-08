@@ -4,6 +4,7 @@ import { Paragraph } from "react-native-paper";
 import { Header, FAB, Card } from "../components";
 
 import { view } from "../styles";
+import i18n from "../i18n";
 
 export default Home = ({
     navigation,
@@ -18,24 +19,32 @@ export default Home = ({
     return (
         <View style={view(theme)}>
             <Header
-                title="Home"
+                title={i18n.t("HOME")}
                 theme={theme}
                 onThemeChange={() => changeTheme()}
             />
             <>
                 {prepayDate !== 0 && (
-                    <Card title="Prepay">
+                    <Card title={i18n.t("PREPAY")}>
                         <Paragraph>
-                            The next prepay is going to be: {nextPrepayDate}.
+                            {i18n.t("PREPAY_DATE_HOME")}
+                            {nextPrepayDate}.
                         </Paragraph>
-                        <Paragraph>It's going to be {nextPrepay}.</Paragraph>
+                        <Paragraph>
+                            {i18n.t("PREPAY_SUM_HOME")}
+                            {nextPrepay}.
+                        </Paragraph>
                     </Card>
                 )}
-                <Card title="Salary">
+                <Card title={i18n.t("SALARY")}>
                     <Paragraph>
-                        The next salary is going to be: {nextSalaryDate}.
+                        {i18n.t("SALARY_DATE_HOME")}
+                        {nextSalaryDate}.
                     </Paragraph>
-                    <Paragraph>It's going to be {nextSalary}.</Paragraph>
+                    <Paragraph>
+                        {i18n.t("SALARY_SUM_HOME")}
+                        {nextSalary}.
+                    </Paragraph>
                 </Card>
             </>
             <FAB onPress={() => navigation.navigate("Add Data")} />

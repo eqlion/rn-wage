@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import * as React from "react";
 import { View } from "react-native";
-import { Calendar } from "react-native-calendars";
+import { Calendar, LocaleConfig } from "react-native-calendars";
 import { Card, Header } from "../components";
 
 import { calendar, view } from "../styles";
+import i18n from "../i18n";
+import calendarRU from "../i18n/locales/calendar";
 
 export default CalendarScreen = ({ navigation, markedDates, theme }) => {
+    const is_ru = i18n.locale.split("-")[0] === "ru";
+    if (is_ru) {
+        LocaleConfig.locales["ru"] = calendarRU;
+        LocaleConfig.defaultLocale = "ru";
+    }
     return (
         <View style={view(theme)}>
-            <Header title="Calendar" />
+            <Header title={i18n.t("CALENDAR")} />
             <Card>
                 <Calendar
                     key={`${theme}`}
@@ -24,6 +31,7 @@ export default CalendarScreen = ({ navigation, markedDates, theme }) => {
                             });
                         }
                     }}
+                    firstDay={is_ru ? 1 : 0}
                     markedDates={markedDates}
                 />
             </Card>

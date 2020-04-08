@@ -1,12 +1,13 @@
 import * as React from "react";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
-import color from "color";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+
 import Home from "../screens/HomeScreen";
 import Calendar from "../screens/CalendarScreen";
 import Settings from "../containers/SettingsContainer";
 import Stats from "../containers/StatsContainer";
 
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import i18n from "../i18n";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,7 +30,7 @@ export default Navigation = ({ theme }) => (
                         size={26}
                     />
                 ),
-                title: "Home",
+                tabBarLabel: i18n.t("HOME"),
             }}
         />
         <Tab.Screen
@@ -43,6 +44,7 @@ export default Navigation = ({ theme }) => (
                         size={26}
                     />
                 ),
+                tabBarLabel: i18n.t("CALENDAR"),
             }}
         />
         <Tab.Screen
@@ -56,6 +58,7 @@ export default Navigation = ({ theme }) => (
                         size={26}
                     />
                 ),
+                tabBarLabel: i18n.t("STATS"),
             }}
         />
         <Tab.Screen
@@ -69,6 +72,7 @@ export default Navigation = ({ theme }) => (
                         size={26}
                     />
                 ),
+                tabBarLabel: i18n.t("SETTINGS"),
             }}
         />
     </Tab.Navigator>

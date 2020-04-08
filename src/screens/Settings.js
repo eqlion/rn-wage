@@ -3,8 +3,12 @@ import { ScrollView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Paragraph, Snackbar, Checkbox, Divider } from "react-native-paper";
 import moment from "moment";
+
 import { Header, Card, Box, NumericInput, DateButton } from "../components";
+
 import { divider } from "../styles";
+import i18n from "../i18n";
+
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);
@@ -153,7 +157,9 @@ export default class Settings extends React.Component {
         return (
             <>
                 <Header
-                    title={firstSetup ? "First setup" : "Settings"}
+                    title={
+                        firstSetup ? i18n.t("FIRST_SETUP") : i18n.t("SETTINGS")
+                    }
                     onSave={() => {
                         this.modifySettings(this.compileData());
                         this.setShowSnack();
@@ -165,27 +171,25 @@ export default class Settings extends React.Component {
                     <Card
                         title={
                             firstSetup
-                                ? "Enter your settings"
-                                : "Change settings"
+                                ? i18n.t("ENTER_SETTINGS")
+                                : i18n.t("CHANGE_SETTINGS")
                         }
                     >
                         {firstSetup && (
                             <>
-                                <Paragraph>
-                                    You will be able to change them later!
-                                </Paragraph>
+                                <Paragraph>{i18n.t("CHANGE_LATER")}</Paragraph>
                                 <Divider style={divider} />
                             </>
                         )}
                         <NumericInput
                             value={baseWage.toString()}
                             onChangeText={(wage) => this.setWage(wage)}
-                            label="Base wage"
+                            label={i18n.t("BASE_WAGE")}
                         />
 
                         <Divider style={divider} />
                         <Box>
-                            <Paragraph>Do you have a holiday wage?</Paragraph>
+                            <Paragraph>{i18n.t("IS_HOLIDAY_WAGE")}</Paragraph>
                             <Checkbox
                                 status={isHolidayWage ? "checked" : "unchecked"}
                                 onPress={() => this.setIsHolidayWage()}
@@ -197,13 +201,13 @@ export default class Settings extends React.Component {
                                 onChangeText={(wage) =>
                                     this.setHolidayWage(wage)
                                 }
-                                label="Holiday wage"
+                                label={i18n.t("HOLIDAY_WAGE")}
                             />
                         )}
 
                         <Divider style={divider} />
                         <Box>
-                            <Paragraph>Do you have a night wage?</Paragraph>
+                            <Paragraph>{i18n.t("IS_NIGHT_WAGE")}</Paragraph>
                             <Checkbox
                                 status={isNightWage ? "checked" : "unchecked"}
                                 onPress={() => this.setIsNightWage()}
@@ -216,11 +220,13 @@ export default class Settings extends React.Component {
                                     onChangeText={(wage) =>
                                         this.setNightWage(wage)
                                     }
-                                    label="Night wage"
+                                    label={i18n.t("NIGHT_WAGE")}
                                 />
 
                                 <Box>
-                                    <Paragraph>Night starts at</Paragraph>
+                                    <Paragraph>
+                                        {i18n.t("NIGHT_STARTS")}
+                                    </Paragraph>
                                     <DateButton
                                         onPress={() => {
                                             this.showPicker("start");
@@ -232,7 +238,9 @@ export default class Settings extends React.Component {
                                     </DateButton>
                                 </Box>
                                 <Box>
-                                    <Paragraph>Night ends at</Paragraph>
+                                    <Paragraph>
+                                        {i18n.t("NIGHT_ENDS")}
+                                    </Paragraph>
                                     <DateButton
                                         onPress={() => {
                                             this.showPicker("finish");
@@ -250,12 +258,14 @@ export default class Settings extends React.Component {
                         <NumericInput
                             value={taxRate.toString()}
                             onChangeText={(tax) => this.setTaxRate(tax)}
-                            label="Taxes, in %"
+                            label={i18n.t("TAX_RATE")}
                         />
 
                         <Divider style={divider} />
                         <Box>
-                            <Paragraph>Salary is paid in two parts</Paragraph>
+                            <Paragraph>
+                                {i18n.t("SALARY_IN_TWO_PARTS")}
+                            </Paragraph>
                             <Checkbox
                                 status={isPrepay ? "checked" : "unchecked"}
                                 onPress={() => this.setIsPrepay()}
@@ -268,27 +278,27 @@ export default class Settings extends React.Component {
                                     onChangeText={(rate) =>
                                         this.setPrepayRate(rate)
                                     }
-                                    label="The prepay as a part of salary, in %"
+                                    label={i18n.t("PREPAY_RATE")}
                                 />
                                 <NumericInput
                                     value={prepayDate.toString()}
                                     onChangeText={(day) =>
                                         this.setPrepayDate(day)
                                     }
-                                    label="The prepay is on"
+                                    label={i18n.t("PREPAY_DATE")}
                                 />
                             </>
                         )}
                         <NumericInput
                             value={salaryDate.toString()}
                             onChangeText={(day) => this.setSalaryDate(day)}
-                            label="The salary is on"
+                            label={i18n.t("SALARY_DATE")}
                         />
                         <Divider style={divider} />
                         <NumericInput
                             value={lunchTime.toString()}
                             onChangeText={(time) => this.setLunchTime(time)}
-                            label="Lunch break length, in min"
+                            label={i18n.t("LUNCH")}
                         />
                     </Card>
                     {showPicker && (
@@ -305,11 +315,11 @@ export default class Settings extends React.Component {
                     visible={showSnack}
                     onDismiss={() => this.setShowSnack()}
                     action={{
-                        label: "Great!",
+                        label: i18n.t("GREAT"),
                         onPress: () => this.setShowSnack(),
                     }}
                 >
-                    Saved!
+                    {i18n.t("SAVED")}
                 </Snackbar>
             </>
         );
