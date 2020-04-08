@@ -7,8 +7,7 @@ import momentRU from "moment/locale/ru";
 import momentEN from "moment/locale/en-gb";
 import i18n from "./src/i18n";
 
-// import { store, persistor } from "./src/store";
-import store from "./src/store";
+import { store, persistor } from "./src/store";
 import ProviderContainer from "./src/containers/ProviderContainer";
 
 if (i18n.locale.split("-")[0] === "ru") {
@@ -19,8 +18,8 @@ if (i18n.locale.split("-")[0] === "ru") {
 
 export default App = () => (
     <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
-        <ProviderContainer />
-        {/* </PersistGate> */}
+        <PersistGate loading={null} persistor={persistor}>
+            <ProviderContainer />
+        </PersistGate>
     </Provider>
 );

@@ -1,39 +1,9 @@
 import Home from "../screens/Home";
 import { connect } from "react-redux";
+
 import moment from "moment";
-// import momentRU from "moment/locale/ru";
+
 import { changeTheme } from "../actions";
-
-// moment.updateLocale("ru", momentRU);
-// console.log(momentRU);
-
-// const data = [
-//     {
-//         startDate: "11.03.2020",
-//         finishDate: "11.03.2020",
-//         startHour: "13:00",
-//         finishHour: "22:00",
-//         hours: 8
-//     },
-//     {
-//         startDate: "11.02.2020",
-//         finishDate: "11.02.2020",
-//         startHour: "13:00",
-//         finishHour: "22:00",
-//         hours: 8
-//     },
-// ];
-
-// const settings = {
-//     holidayWage: 1.5,
-//     nightWage: 1.25,
-//     taxRate: 0,
-//     baseWage: 10,
-//     nightStarts: 22,
-//     salaryDate: 10,
-//     prepayDate: 25,
-//     prepayRate: 0.4
-// };
 
 const moveToFriday = (date) => {
     // If this date is yet to come

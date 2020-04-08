@@ -15,6 +15,5 @@ i18n.locale = deviceLocale === "ru" ? deviceLocale : "en";
 i18n.fallbacks = true;
 i18n.locale = Localization.locale;
 i18n.translations = { ru, en };
-console.log(i18n.currentLocale());
 
 export default i18n;

@@ -4,18 +4,17 @@ import { persistStore, persistReducer } from "redux-persist";
 
 import rootReducer from "../reducers";
 
-// const persistConfig = {
-//     key: "@rn-wage",
-//     storage: AsyncStorage,
-//     blacklist: ["screen"]
-// };
+const persistConfig = {
+    key: "@rn-wage",
+    storage: AsyncStorage,
+};
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// const store = createStore(persistedReducer);
+const store = createStore(persistedReducer);
 
-// let persistor = persistStore(store);
+let persistor = persistStore(store);
 
-// export { store, persistor };
+export { store, persistor };
 
-export default createStore(rootReducer);
+// export default createStore(rootReducer);
